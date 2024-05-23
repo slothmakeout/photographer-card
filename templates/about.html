@@ -1,0 +1,14 @@
+<!-- templates/about.html -->
+
+{% extends 'base.html' %} {% block content %}
+<section id="about">
+  <div class="photographer-info">
+    <img
+      src="{{ url_for('static', filename=photographer_data.photo_src) }}"
+      alt="Photographer"
+    />
+    <h2>{{ photographer_data.name }}</h2>
+    <p>{{ photographer_data.description }}</p>
+  </div>
+</section>
+{% endblock %}
