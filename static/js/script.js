@@ -1,37 +1,42 @@
-// static/js/script.js
-
-console.log("script.js загружен");
-
-var slideIndex = 0;
-
-function openModal(src) {
-  console.log("openModal");
-  var modal = document.getElementById("modal");
-  var modalImg = document.getElementById("modal-image");
-  console.log(modalImg);
-  modal.style.display = "block";
-  modalImg.src = src;
-
-  // Обновляем индекс текущего изображения
-  var photos = document.querySelectorAll(".photo-item img");
-  slideIndex = Array.from(photos).findIndex((photo) => photo.src.includes(src));
+function updateStyle(element, removeStyle, addStyle) {
+  element.classList.remove(removeStyle);
+  element.classList.add(addStyle);
 }
 
-function closeModal() {
-  var modal = document.getElementById("modal");
-  modal.style.display = "none";
-}
+const menuButton = document.getElementById("menuButton");
+const menuOverlay = document.getElementById("menuOverlay");
+const brand = document.getElementById("brand");
+const menuContent = document.getElementById("menuContent");
+const menuTimeout = 500;
 
-function changeSlide(n) {
-  var photos = document.querySelectorAll(".photo-item img");
-  slideIndex += n;
+menuButton.addEventListener("click", () => {
+  if (menuOverlay.classList.contains("translate-y-0")) {
+    // Если оверлей открыт
+    menuContent.style.opacity = "0";
 
-  if (slideIndex >= photos.length) {
-    slideIndex = 0;
-  } else if (slideIndex < 0) {
-    slideIndex = photos.length - 1;
+    setTimeout(() => {
+      updateStyle(menuOverlay, "translate-y-0", "-translate-y-full");
+      updateStyle(menuButton, "text-white", "text-blue-300");
+      updateStyle(brand, "hover:text-green-300", "hover:text-green-500");
+
+      brand.classList.remove("text-white");
+      brand.classList.add("text-blue-500");
+      // Меняем цвет текста кнопки на синий после закрытия оверлея
+    }, menuTimeout); // Это значение должно совпадать с duration анимации скрытия содержимого
+  } else {
+    // Если оверлей закрыт
+    menuOverlay.classList.add("translate-y-0");
+    menuContent.style.opacity = "0";
+
+    menuButton.classList.remove("text-blue-300");
+    menuButton.classList.add("text-white");
+
+    brand.classList.remove("text-blue-500");
+    brand.classList.add("text-white");
+    updateStyle(brand, "hover:text-green-500", "hover:text-green-300");
+    setTimeout(() => {
+      menuContent.style.opacity = "1";
+      // Меняем цвет текста кнопки на белый после открытия оверлея
+    }, menuTimeout); // Синхронизируем появление содержимого с окончанием анимации спуска оверлея
   }
-
-  var modalImg = document.getElementById("modal-image");
-  modalImg.src = photos[slideIndex].src;
-}
+});

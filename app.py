@@ -7,16 +7,6 @@ import os
 
 app = Flask(__name__)
 
-# Пути к изображениям должны начинаться с папки static,
-# поэтому удалим "static/" из путей к изображениям
-
-# photos_data = [
-#     {"id": 1, "src": "images/photo1.jpg"},  # Изменили путь к изображениям
-#     {"id": 2, "src": "images/photo2.jpg"},
-#     # Добавьте остальные данные о фотографиях
-# ]
-
-
 # Функция для получения всех файлов в папке images/photos_data
 def get_photos_data():
     photos_data = []
@@ -60,7 +50,6 @@ photographer_data = {
 contact_data = {
     "email": "photographer@example.com",
     "phone": "+123456789",
-    # Другие данные для формы контактов
 }
 
 
@@ -98,6 +87,9 @@ def portfolio():
 def about():
     return render_template("about.html", photographer_data=photographer_data)
 
+@app.route("/menu")
+def menu():
+    return render_template("menu.html", photographer_data=photographer_data)
 
 @app.route("/contact")
 def contact():

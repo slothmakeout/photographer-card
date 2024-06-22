@@ -2,17 +2,26 @@
 
 {% extends 'base.html' %} {% block content %}
 <section id="portfolio">
-  <h2>Portfolio</h2>
+  <p class="font-mono">Portfolio</p>
   <div class="photo-grid">
     {% for photo in portfolio_data %}
-    <div class="photo-item">
+    <div class="photo-item hover:-translate-y-1 hover:scale-102">
       <img
         src="{{ url_for('static', filename=photo.src) }}"
         alt="Photo {{ photo.id }}"
-        onclick="openModal('{{ photo.src }}')"
       />
     </div>
     {% endfor %}
   </div>
 </section>
+
+<!-- Модальное окно -->
+<div id="myModal" class="modal">
+  <span class="close">&times;</span>
+  <img class="modal-content" id="img01" />
+  <div id="caption"></div>
+</div>
+
+{% endblock %} {% block scripts %}
+<script src="{{ url_for('static', filename='js/modal.js') }}"></script>
 {% endblock %}

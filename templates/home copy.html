@@ -1,0 +1,21 @@
+<!-- templates/home.html -->
+
+{% extends 'base.html' %} {% block content %}
+<div id="slider"></div>
+<section id="home">
+  <h2>Home</h2>
+  <div class="photo-grid">
+    {% for photo in photos_data %}
+    <div class="photo-item">
+      <img
+        src="{{ url_for('static', filename=photo.src) }}"
+        alt="Photo {{ photo.id }}"
+        data-src="{{ url_for('static', filename=photo.src) }}"
+        onclick="openModal(this.dataset.src)"
+      />
+      <h2>{{ photo.src }}</h2>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
