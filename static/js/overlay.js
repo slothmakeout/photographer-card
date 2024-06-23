@@ -1,20 +1,13 @@
 const overlays = document.querySelectorAll("#imageOverlay");
-// overlays.forEach((overlay) => {
-//   const img = overlay.previousElementSibling;
-//   const albumName = img.getAttribute("data-albumName");
-//   overlay.textContent = albumName;
-// });
 
 overlays.forEach((overlay) => {
   overlay.addEventListener("mouseenter", () => {
     overlay.querySelector("p").classList.add("opacity-100");
-    console.log("mouseenter");
   });
 
   overlay.addEventListener("mouseleave", () => {
     overlay.querySelector("p").classList.remove("opacity-100");
     overlay.querySelector("p").classList.add("opacity-0");
-    console.log("mouse leave");
   });
 
   overlay.addEventListener("click", function () {
