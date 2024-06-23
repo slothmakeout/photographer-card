@@ -1,68 +1,53 @@
 <!-- templates/home.html -->
 
 {% extends 'base.html' %} {% block content %}
-<section id="home" class="overflow-hidden h-full w-full">
-  <div class="flex flex-col lg:flex-row h-full">
-    <!-- <div class="w-full h-1/2 lg:h-full lg:w-1/3 flex flex-col justify-end mr-4">
-      <div id="homeImage1" class="overflow-hidden basis-1/2">
-        <img
-          src="{{ url_for('static', filename='images/photo1.jpg') }}"
-          alt="Person Image"
-          class="w-full md:h-auto max-w-none"
-        />
-      </div>
-      <div id="homeImage2" class="overflow-hidden basis-1/2">
-        <img
-          src="{{ url_for('static', filename='images/photo2.jpg') }}"
-          alt="Person Image"
-          class="w-full md:h-auto max-w-none"
-        />
-      </div>
-    </div> -->
-    <div class="w-full h-1/2 lg:h-full lg:w-1/3 flex flex-col justify-end mr-4">
-      <div id="imageContainer" class="relative overflow-hidden h-full">
-        <img
-          src="{{ url_for('static', filename='images/photo1.jpg') }}"
-          alt="Person Image"
-          class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
-          id="image1"
-        />
-        <img
-          src="{{ url_for('static', filename='images/photo2.jpg') }}"
-          alt="Person Image"
-          class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 opacity-0"
-          id="image2"
-        />
-      </div>
-    </div>
-
+<section
+  id="home"
+  class="overflow-hidden grow w-full flex flex-col lg:flex-row"
+>
+  <div
+    class="grow lg:grow-0 md:basis-1/2 flex flex-col justify-end mb-2 lg:mb-0 lg:mr-4"
+  >
     <div
-      id="welcomeText"
-      class="bg-white-300 grow flex flex-col justify-end p-4 font-mono text-blue-500"
+      id="imageContainer"
+      class="relative flex flex-col overflow-hidden grow rounded-lg"
     >
-      <div class="mb-16 flex flex-col">
-        <p class="text-5xl md:text-6xl lg:text-8xl mb-2 font-bold">
-          LO-FI PHOTOGRAPHY
-        </p>
-        <p class="text-5xl md:text-6xl lg:text-8xl mb-2 font-bold">REVIVAL</p>
-        <p class="text-xl">+++++++Check my works</p>
-      </div>
-      <div class="flex justify-end space-x-8">
-        <a href="/portfolio" class="flex items-center space-x-2 text-xl group">
-          <span>PORTFOLIO</span>
-          <span
-            class="transition-all group-hover:-translate-x-2 group-hover:scale-102"
-            >&rarr;</span
-          >
-        </a>
-        <a href="/about" class="flex items-center space-x-2 text-xl group">
-          <span>ABOUT</span>
-          <span
-            class="transition-all group-hover:-translate-x-2 group-hover:scale-102"
-            >&rarr;</span
-          >
-        </a>
-      </div>
+      {% for image in home_images_data %}
+      <img
+        src="{{ url_for('static', filename=image.src) }}"
+        alt="Person Image"
+        class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 {% if not loop.first %}opacity-0{% endif %}"
+        id="image{{ loop.index }}"
+      />
+      {% endfor %}
+    </div>
+  </div>
+
+  <div
+    id="welcomeText"
+    class="bg-white-300 flex flex-col justify-end font-mono text-blue-500 lg:grow"
+  >
+    <div class="mb-16 flex flex-col">
+      <p class="text-5xl md:text-6xl lg:text-8xl mb-2 font-bold">LO-FI</p>
+      <p class="text-5xl md:text-6xl lg:text-8xl mb-2 font-bold">PHOTOGRAPHY</p>
+      <p class="text-5xl md:text-6xl lg:text-8xl mb-2 font-bold">REVIVAL</p>
+      <p class="text-xl font-light italic">+++++++Check out my works</p>
+    </div>
+    <div class="flex justify-end space-x-8 items-center">
+      <a href="/portfolio" class="flex items-center space-x-2 text-xl group">
+        <span>PORTFOLIO</span>
+        <span
+          class="transition-all group-hover:-translate-x-2 group-hover:scale-102"
+          >&rarr;</span
+        >
+      </a>
+      <a href="/about" class="flex items-center space-x-2 text-xl group">
+        <span>ABOUT</span>
+        <span
+          class="transition-all group-hover:-translate-x-2 group-hover:scale-102"
+          >&rarr;</span
+        >
+      </a>
     </div>
   </div>
 </section>

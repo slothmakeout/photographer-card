@@ -1,27 +1,82 @@
 <!-- templates/portfolio.html -->
 
 {% extends 'base.html' %} {% block content %}
-<section id="portfolio">
-  <p class="font-mono">Portfolio</p>
-  <div class="photo-grid">
-    {% for photo in portfolio_data %}
-    <div class="photo-item hover:-translate-y-1 hover:scale-102">
-      <img
-        src="{{ url_for('static', filename=photo.src) }}"
-        alt="Photo {{ photo.id }}"
-      />
+<section id="portfolio" class="flex flex-col h-full space-y-4 text-white">
+  <div
+    id="previewContainer"
+    class="px-0 md:px-0 basis-1/4 flex flex-col md:flex-row space-y-2 md:space-y-0 space-x-0 md:space-x-4 justify-between overflow-y-hidden items-center"
+  >
+    <div
+      id="albumLabel"
+      class="w-full bg-blue-500 basis-1/6 md:h-full md:basis-1/3 flex items-center justify-center"
+    >
+      <p
+        class="text-xl md:text-3xl lg:text-4xl mb-2 md:mb-0 font-bold wrap uppercase px-2"
+      >
+        Click on the albums to see all photos
+      </p>
     </div>
-    {% endfor %}
+    <div class="w-full basis-5/6 md:h-full md:basis-2/3 overflow-y-hidden">
+      <div
+        class="w-full h-full overflow-x-hidden flex flex-row grow space-x-4 mb-1 md:mb-0 items-center justify-between flex-nowrap"
+      >
+        {% for photo in albums_data %} {% if photo.id == 1 %}
+        <div class="relative flex flex-nowrap h-full">
+          <img
+            src="{{ url_for('static', filename=photo.src) }}"
+            alt="Album Preview Photo"
+            class="w-auto h-full md:w-40 lg:w-auto object-cover"
+            data-album="{{ photo.album }}"
+            data-albumName="{{ photo.albumName }}"
+          />
+          <div
+            id="imageOverlay"
+            class="cursor-pointer absolute inset-0 w-auto h-auto md:w-40 lg:w-auto object-cover flex items-center justify-center bg-black bg-opacity-0 hover:bg-opacity-40"
+          >
+            <p
+              class="text-white text-lg font-bold p-4 opacity-0"
+              id="albumName"
+            >
+              {{photo.albumName}}
+            </p>
+          </div>
+        </div>
+        {% endif %} {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div
+    id="viewContainer"
+    class="g-blue-400 basis-3/4 flex flex-row space-x-4 justify-start overflow-x-auto"
+  >
+    <div class="h-full w-full bg-green-500 flex items-center justify-center">
+      <p class="text-5xl md:text-6xl lg:text-8xl mb-2 font-bold">PORTFOLIO</p>
+    </div>
   </div>
 </section>
 
 <!-- Модальное окно -->
-<div id="myModal" class="modal">
-  <span class="close">&times;</span>
-  <img class="modal-content" id="img01" />
-  <div id="caption"></div>
+<div
+  id="myModal"
+  class="modal fixed inset-0 hidden z-50 flex items-center justify-center bg-black bg-opacity-90"
+>
+  <span
+    class="close absolute top-4 right-8 text-white text-4xl font-bold cursor-pointer"
+    >&times;</span
+  >
+  <div class="flex flex-col w-1/2 h-3/4h-f">
+    <img
+      class="animate-zoom modal-content mx-auto block w-full h-1/2"
+      id="img01"
+    />
+    <div id="caption" class="text-white text-center mt-4 animate-zoom"></div>
+  </div>
 </div>
 
 {% endblock %} {% block scripts %}
 <script src="{{ url_for('static', filename='js/modal.js') }}"></script>
+
+<script src="{{ url_for('static', filename='js/gallery.js') }}"></script>
+<script src="{{ url_for('static', filename='js/overlay.js') }}"></script>
+
 {% endblock %}

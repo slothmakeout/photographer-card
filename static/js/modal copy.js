@@ -18,6 +18,13 @@ closeBtn.onclick = function () {
   modal.classList.remove("block");
 };
 
+// Добавляем обработчики для каждого изображения
+document.querySelectorAll(".photo-item img").forEach((img) => {
+  img.onclick = function () {
+    openModal(this.src, this.alt);
+  };
+});
+
 // Закрытие модального окна при клике вне изображения
 window.onclick = function (event) {
   if (event.target == modal) {

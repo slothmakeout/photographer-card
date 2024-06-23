@@ -4,6 +4,7 @@ function updateStyle(element, removeStyle, addStyle) {
 }
 
 const menuButton = document.getElementById("menuButton");
+const body = document.body;
 const menuOverlay = document.getElementById("menuOverlay");
 const brand = document.getElementById("brand");
 const menuContent = document.getElementById("menuContent");
@@ -13,30 +14,23 @@ menuButton.addEventListener("click", () => {
   if (menuOverlay.classList.contains("translate-y-0")) {
     // Если оверлей открыт
     menuContent.style.opacity = "0";
+    updateStyle(menuButton, "text-white", "text-blue-500");
+    updateStyle(brand, "text-white", "text-blue-500");
 
     setTimeout(() => {
       updateStyle(menuOverlay, "translate-y-0", "-translate-y-full");
-      updateStyle(menuButton, "text-white", "text-blue-300");
-      updateStyle(brand, "hover:text-green-300", "hover:text-green-500");
-
-      brand.classList.remove("text-white");
-      brand.classList.add("text-blue-500");
-      // Меняем цвет текста кнопки на синий после закрытия оверлея
-    }, menuTimeout); // Это значение должно совпадать с duration анимации скрытия содержимого
+      updateStyle(body, "overflow-hidden", "overflow-auto");
+    }, menuTimeout); // = duration анимации скрытия содержимого
   } else {
     // Если оверлей закрыт
     menuOverlay.classList.add("translate-y-0");
     menuContent.style.opacity = "0";
 
-    menuButton.classList.remove("text-blue-300");
-    menuButton.classList.add("text-white");
-
-    brand.classList.remove("text-blue-500");
-    brand.classList.add("text-white");
-    updateStyle(brand, "hover:text-green-500", "hover:text-green-300");
+    updateStyle(menuButton, "text-blue-500", "text-white");
+    updateStyle(brand, "text-blue-500", "text-white");
     setTimeout(() => {
       menuContent.style.opacity = "1";
-      // Меняем цвет текста кнопки на белый после открытия оверлея
+      updateStyle(body, "overflow-auto", "overflow-hidden");
     }, menuTimeout); // Синхронизируем появление содержимого с окончанием анимации спуска оверлея
   }
 });

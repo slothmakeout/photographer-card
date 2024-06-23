@@ -11,17 +11,17 @@
       href="{{ url_for('static', filename='css/app.css') }}"
     />
   </head>
-  <body>
-    <header class="font-mono p-4 absolute top-0 left-0 w-full">
+  <body class="flex flex-col min-h-screen font-mono">
+    <header class="p-4 absolute top-0 left-0 w-full">
       <a
         href="/"
         id="brand"
-        class="brand text-blue-500 hover:text-green-300 text-2xl z-50"
+        class="brand text-blue-500 hover:text-green-400 text-2xl z-50 transition duration-500"
         >glowcoma.online</a
       >
       <button
         id="menuButton"
-        class="relative z-50 bg-transparent text-blue-500 cursor-pointer text-lg leading-6 rounded transition duration-300"
+        class="relative z-50 bg-transparent text-blue-500 cursor-pointer text-lg leading-6 rounded transition duration-500"
       >
         Menu
       </button>
@@ -41,7 +41,7 @@
         >
           <div
             id="mainNav"
-            class="overflow-hidden flex-col font-bold text-lg lg:text-5xl md:text-2xl"
+            class="overflow-hidden flex-col font-mono font-bold text-lg lg:text-5xl md:text-2xl"
           >
             <div class="flex-row items-center">
               <a href="/" class="hover:text-green-400">HOME</a>
@@ -73,7 +73,7 @@
       </div>
     </div>
 
-    <main class="relative w-screen h-screen pb-4 pt-20 px-4">
+    <main class="relative w-screen grow h-screen pb-4 pt-20 px-4 flex flex-col">
       {% block content %}{% endblock %}
     </main>
 
@@ -92,7 +92,7 @@
             <li><a href="/contact" class="hover:underline">Contact</a></li>
           </ul>
         </nav>
-        <a href="#" class="text-sm md:text-base hover:underline"
+        <a href="/user-agreement" class="text-sm md:text-base hover:underline"
           >User Agreement</a
         >
       </div>
